@@ -7,8 +7,8 @@ struct elements{
     struct elements *next;
 };
 
-struct elements *addition ( struct elements *last, int item);
-int deletion (struct elements **tail, struct elements **head);
+struct elements *add ( struct elements *last, int item);
+int shift (struct elements **tail, struct elements **head);
 
 int main (){
     system ("chcp 65001");
@@ -22,7 +22,7 @@ int main (){
         printf("Введіть число ( після введення натисніть двічі Enter ): ");
         scanf("%d", &n);
 
-        tail = addition(tail, n);
+        tail = add(tail, n);
         if(head == NULL){
             head = tail;
         }
@@ -37,7 +37,7 @@ int main (){
     int index_max;
     int flag = 1;
     while (head != NULL){
-        int value = deletion (&tail, &head);
+        int value = shift (&tail, &head);
         if(flag || value > max){
             max = value; 
             index_max = index;
@@ -49,7 +49,7 @@ int main (){
     return 0;
 }
 
-struct elements *addition ( struct elements *last, int item){
+struct elements *add ( struct elements *last, int item){
     struct elements *new;
     new = (struct elements*)malloc(sizeof(struct elements));
     if(new == NULL){
@@ -64,7 +64,7 @@ struct elements *addition ( struct elements *last, int item){
     return new;
 }
 
-int deletion (struct elements **tail, struct elements **head){
+int shift (struct elements **tail, struct elements **head){
     struct elements* first = *head; 
     int n = first -> info;
     *head = (**head).next;
